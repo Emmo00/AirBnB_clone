@@ -39,3 +39,11 @@ class TestBaseModelClass(unittest.TestCase):
         self.assertIsInstance(model_dict, dict)
         self.assertEqual(model_dict['__class__'], model.__class__.__name__)
         self.assertIsInstance(model_dict['created_at'], str)
+    
+    def test_keyword_created_object(self):
+        model1 = BaseModel()
+        model1_dict = model1.to_dict()
+        model2 = BaseModel(**model1_dict)
+        self.assertFalse(model1 is model2)
+        self.assertIsInstance(model2.created_at, datetime)
+        
