@@ -7,6 +7,7 @@ sys.path.insert(0, '../../')
 from models.base_model import BaseModel
 from datetime import datetime
 
+
 class TestBaseModelClass(unittest.TestCase):
     def test_unique_id(self):
         model1 = BaseModel()
@@ -46,4 +47,6 @@ class TestBaseModelClass(unittest.TestCase):
         model2 = BaseModel(**model1_dict)
         self.assertFalse(model1 is model2)
         self.assertIsInstance(model2.created_at, datetime)
-        
+
+if __name__ == '__main__':
+    unittest.main()
