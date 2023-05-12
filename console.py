@@ -85,11 +85,11 @@ class HBNBCommand(cmd.Cmd):
         for key, value in self.existing_objs.items():
             if key.startswith(class_name):
                 print(f"{value['__class__']}(**value)")
-                # instance_list.append(
-                #     str(
-                #         eval(f"{value.__class__}(**value)")
-                #     )
-                # )
+                instance_list.append(
+                    str(
+                        eval(f"{value['__class__']}(**value)")
+                    )
+                )
         print(instance_list)
 
     def do_update(self, args):
