@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 import shlex
 
@@ -23,7 +24,7 @@ class HBNBCommand(cmd.Cmd):
         return shlex.split(args)
 
     def validate_argument_class_name(self, command, args):
-        supported_classes = ('BaseModel')
+        supported_classes = ('BaseModel', 'User')
         if len(args) == 0 and command != 'all':
             print("** class name missing **")
             raise ArgumentError("class name missing")
@@ -45,7 +46,9 @@ class HBNBCommand(cmd.Cmd):
             raise ArgumentError("attribute name missing")
 
     def validate_argument_attribute_value(self, command, args):
-        pass
+        if len(args) < 4:
+            print("** value missing **")
+            raise ArgumentError("value missing")
 
     def do_quit(self, args):
         """Quit command to exit the program
