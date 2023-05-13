@@ -32,7 +32,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             raise ArgumentError("class doesn't exist")
 
-    def validate_argument_id(self, command: str, args: tuple):
+    def validate_argument_id(self, command, args):
         if len(args) < 2:
             print("** instance id missing **")
             raise ArgumentError("instance id missing")
@@ -105,7 +105,6 @@ class HBNBCommand(cmd.Cmd):
         obj = self.existing_objs[f"{class_name}.{id}"]
         setattr(obj, attribute_name, attribute_value)
         obj.save()
-
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
