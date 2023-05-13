@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""console module
+entry point to the airbnb shell
+"""
 import cmd
 from models.base_model import BaseModel
 from models.user import User
@@ -7,10 +10,14 @@ import shlex
 
 
 class ArgumentError(Exception):
+    """custom Error class for
+    bad arguments"""
     pass
 
 
 class HBNBCommand(cmd.Cmd):
+    """Airbnb shell class
+    """
     prompt = '(hbnb) '
     existing_objs = storage.all()
 
