@@ -19,7 +19,7 @@ class HBNBCommand(cmd.Cmd):
             super().cmdloop()
         except ArgumentError:
             self.cmdloop()
-            
+
     def emptyline(self):
         return False
 
@@ -27,7 +27,15 @@ class HBNBCommand(cmd.Cmd):
         return shlex.split(args)
 
     def validate_argument_class_name(self, command, args):
-        supported_classes = ('BaseModel', 'User', 'Place', 'State', 'City', 'Amenity', 'Review')
+        supported_classes = (
+            'BaseModel',
+            'User',
+            'Place',
+            'State',
+            'City',
+            'Amenity',
+            'Review'
+            )
         if len(args) == 0 and command != 'all':
             print("** class name missing **")
             raise ArgumentError("class name missing")
@@ -64,6 +72,10 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, args):
+        """ Creates a new instance of BaseModel,
+        saves it (to the JSON file) and prints the id.
+        Ex: $ create BaseModel
+        """
         args = self.parse_arguments(args)
         self.validate_argument_class_name("create", args)
         class_name = args[0]
@@ -72,6 +84,10 @@ class HBNBCommand(cmd.Cmd):
         print(new.id)
 
     def do_show(self, args):
+        """Prints the string representation of an instance based
+        on the class name and id.
+        Ex: $ show BaseModel 1234-1234-1234.
+        """
         args = self.parse_arguments(args)
         self.validate_argument_class_name("show", args)
         self.validate_argument_id("show", args)
@@ -80,6 +96,10 @@ class HBNBCommand(cmd.Cmd):
         print(obj)
 
     def do_destroy(self, args):
+        """ Deletes an instance based on the class name and id
+        (save the change into the JSON file).
+        Ex: $ destroy BaseModel 1234-1234-1234.
+        """
         args = self.parse_arguments(args)
         self.validate_argument_class_name("destroy", args)
         self.validate_argument_id("destroy", args)
@@ -88,6 +108,10 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_all(self, args):
+        """Prints all string representation of all instances
+        based or not on the class name.
+        Ex: $ all BaseModel or $ all.
+        """
         args = self.parse_arguments(args)
         if len(args) >= 1:
             self.validate_argument_class_name("all", args)
@@ -99,6 +123,10 @@ class HBNBCommand(cmd.Cmd):
         print(instance_list)
 
     def do_update(self, args):
+        """Updates an instance based on the class name and id by
+        adding or updating attribute (save the change into the JSON file).
+        Ex: $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
+        """
         args = self.parse_arguments(args)
         self.validate_argument_class_name("update", args)
         self.validate_argument_id("update", args)
@@ -108,6 +136,7 @@ class HBNBCommand(cmd.Cmd):
         obj = self.existing_objs[f"{class_name}.{id}"]
         setattr(obj, attribute_name, attribute_value)
         obj.save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
