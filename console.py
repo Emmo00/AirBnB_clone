@@ -24,7 +24,7 @@ class HBNBCommand(cmd.Cmd):
         return shlex.split(args)
 
     def validate_argument_class_name(self, command, args):
-        supported_classes = ('BaseModel', 'User')
+        supported_classes = ('BaseModel', 'User', 'Place', 'State', 'City', 'Amenity', 'Review')
         if len(args) == 0 and command != 'all':
             print("** class name missing **")
             raise ArgumentError("class name missing")
