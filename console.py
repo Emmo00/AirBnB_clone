@@ -1,6 +1,7 @@
 import cmd
 from models.base_model import BaseModel
 from models import storage
+import shlex
 
 
 class ArgumentError(Exception):
@@ -18,7 +19,7 @@ class HBNBCommand(cmd.Cmd):
             self.cmdloop()
 
     def parse_arguments(self, args):
-        return tuple(args.split())
+        return shlex.split(args)
 
     def validate_argument_class_name(self, command, args):
         supported_classes = ('BaseModel')
@@ -84,7 +85,6 @@ class HBNBCommand(cmd.Cmd):
         instance_list = []
         for key, value in self.existing_objs.items():
             if key.startswith(class_name):
-                print(f"{value['__class__']}(**value)")
                 instance_list.append(
                     str(
                         eval(f"{value['__class__']}(**value)")
@@ -93,7 +93,15 @@ class HBNBCommand(cmd.Cmd):
         print(instance_list)
 
     def do_update(self, args):
-        pass
+        args = self.parse_arguments(args)
+        self.validate_argument_class_name("update", args)
+        self.validate_argument_id("update", args)
+        self.validate_argument_attribute_name("update", args)
+        self.validate_argument_attribute_value("update", args)
+        class_name, id, attribute_name, attribute_value = args
+        obj = self.existing_objs[f"{class_name}.{id}"]
+        obj[attribute_name] = attribute_value
+        BaseModel(**obj).save()
 
 
 if __name__ == '__main__':
