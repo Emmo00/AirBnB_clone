@@ -73,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
         self.validate_argument_class_name("show", args)
         self.validate_argument_id("show", args)
         class_name, id = args
-        obj = eval(f"{class_name}(**self.existing_objs['{class_name}.{id}'])")
+        obj = self.existing_objs[f'{class_name}.{id}']
         print(obj)
 
     def do_destroy(self, args):
@@ -92,11 +92,7 @@ class HBNBCommand(cmd.Cmd):
         instance_list = []
         for key, value in self.existing_objs.items():
             if key.startswith(class_name):
-                instance_list.append(
-                    str(
-                        eval(f"{value['__class__']}(**value)")
-                    )
-                )
+                instance_list.append(str(value))
         print(instance_list)
 
     def do_update(self, args):
@@ -107,8 +103,8 @@ class HBNBCommand(cmd.Cmd):
         self.validate_argument_attribute_value("update", args)
         class_name, id, attribute_name, attribute_value = args
         obj = self.existing_objs[f"{class_name}.{id}"]
-        obj[attribute_name] = attribute_value
-        eval(f"{obj['__class__']}(**obj).save()")
+        setattr(obj, attribute_name, attribute_value)
+        obj.save()
 
 
 if __name__ == '__main__':
