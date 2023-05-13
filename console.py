@@ -33,7 +33,7 @@ class HBNBCommand(cmd.Cmd):
     def parse_arguments(self, args):
         return shlex.split(args)
 
-    def validate_argument_class_name(self, command, args):
+    def validate_argument_class_name(self, args):
         supported_classes = (
             'BaseModel',
             'User',
@@ -43,14 +43,14 @@ class HBNBCommand(cmd.Cmd):
             'Amenity',
             'Review'
             )
-        if len(args) == 0 and command != 'all':
+        if len(args) == 0:
             print("** class name missing **")
             raise ArgumentError("class name missing")
-        if command != 'all' and args[0] not in supported_classes:
+        if args[0] not in supported_classes:
             print("** class doesn't exist **")
             raise ArgumentError("class doesn't exist")
 
-    def validate_argument_id(self, command, args):
+    def validate_argument_id(self, args):
         if len(args) < 2:
             print("** instance id missing **")
             raise ArgumentError("instance id missing")
@@ -58,12 +58,12 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
             raise ArgumentError("no instance found")
 
-    def validate_argument_attribute_name(self, command, args):
+    def validate_argument_attribute_name(self, args):
         if len(args) < 3:
             print("** attribute name missing **")
             raise ArgumentError("attribute name missing")
 
-    def validate_argument_attribute_value(self, command, args):
+    def validate_argument_attribute_value(self, args):
         if len(args) < 4:
             print("** value missing **")
             raise ArgumentError("value missing")
@@ -84,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
         Ex: $ create BaseModel
         """
         args = self.parse_arguments(args)
-        self.validate_argument_class_name("create", args)
+        self.validate_argument_class_name(args)
         class_name = args[0]
         new = eval(f"{class_name}()")
         new.save()
@@ -96,8 +96,8 @@ class HBNBCommand(cmd.Cmd):
         Ex: $ show BaseModel 1234-1234-1234.
         """
         args = self.parse_arguments(args)
-        self.validate_argument_class_name("show", args)
-        self.validate_argument_id("show", args)
+        self.validate_argument_class_name(args)
+        self.validate_argument_id(args)
         class_name, id = args
         obj = self.existing_objs[f'{class_name}.{id}']
         print(obj)
@@ -108,8 +108,8 @@ class HBNBCommand(cmd.Cmd):
         Ex: $ destroy BaseModel 1234-1234-1234.
         """
         args = self.parse_arguments(args)
-        self.validate_argument_class_name("destroy", args)
-        self.validate_argument_id("destroy", args)
+        self.validate_argument_class_name(args)
+        self.validate_argument_id(args)
         class_name, id = args
         del self.existing_objs[f"{class_name}.{id}"]
         storage.save()
@@ -121,7 +121,7 @@ class HBNBCommand(cmd.Cmd):
         """
         args = self.parse_arguments(args)
         if len(args) >= 1:
-            self.validate_argument_class_name("all", args)
+            self.validate_argument_class_name(args)
         class_name = "" if len(args) < 1 else args[0]
         instance_list = []
         for key, value in self.existing_objs.items():
@@ -135,10 +135,10 @@ class HBNBCommand(cmd.Cmd):
         Ex: $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
         """
         args = self.parse_arguments(args)
-        self.validate_argument_class_name("update", args)
-        self.validate_argument_id("update", args)
-        self.validate_argument_attribute_name("update", args)
-        self.validate_argument_attribute_value("update", args)
+        self.validate_argument_class_name(args)
+        self.validate_argument_id(args)
+        self.validate_argument_attribute_name(args)
+        self.validate_argument_attribute_value(args)
         class_name, id, attribute_name, attribute_value = args
         obj = self.existing_objs[f"{class_name}.{id}"]
         setattr(obj, attribute_name, attribute_value)
