@@ -59,7 +59,8 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         args = self.parse_arguments(args)
         self.validate_argument_class_name("create", args)
-        new = eval(f"{args[0]}()")
+        class_name = args[0]
+        new = eval(f"{class_name}()")
         new.save()
         print(new.id)
 
@@ -67,14 +68,16 @@ class HBNBCommand(cmd.Cmd):
         args = self.parse_arguments(args)
         self.validate_argument_class_name("show", args)
         self.validate_argument_id("show", args)
-        obj = eval(f"{args[0]}(**self.existing_objs['{args[0]}.{args[1]}'])")
+        class_name, id = args
+        obj = eval(f"{class_name}(**self.existing_objs['{class_name}.{id}'])")
         print(obj)
 
     def do_destroy(self, args):
         args = self.parse_arguments(args)
         self.validate_argument_class_name("destroy", args)
         self.validate_argument_id("destroy", args)
-        del self.existing_objs[args[0] + "." + args[1]]
+        class_name, id = args
+        del self.existing_objs[f"{class_name}.{id}"]
         storage.save()
 
     def do_all(self, args):
@@ -101,7 +104,7 @@ class HBNBCommand(cmd.Cmd):
         class_name, id, attribute_name, attribute_value = args
         obj = self.existing_objs[f"{class_name}.{id}"]
         obj[attribute_name] = attribute_value
-        BaseModel(**obj).save()
+        eval(f"{obj['__class__']}(**obj).save()")
 
 
 if __name__ == '__main__':
