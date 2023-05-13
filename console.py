@@ -19,6 +19,9 @@ class HBNBCommand(cmd.Cmd):
             super().cmdloop()
         except ArgumentError:
             self.cmdloop()
+            
+    def emptyline(self):
+        return False
 
     def parse_arguments(self, args):
         return shlex.split(args)
