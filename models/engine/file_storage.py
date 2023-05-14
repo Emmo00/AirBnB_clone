@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""file_storage module.
+Defines the FileStorage class
+"""
 import json
 import os
 from ..base_model import BaseModel
@@ -6,6 +9,8 @@ from ..user import User
 
 
 class FileStorage:
+    """FileStorage class
+    """
     def __init__(self):
         self.__file_path = 'file.json'
         self.__objects = {}

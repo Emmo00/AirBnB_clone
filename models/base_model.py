@@ -1,10 +1,17 @@
 #!/usr/bin/python3
+"""base_model module
+Defines BaseModel class
+"""
 import uuid
 from datetime import datetime
 import models
 
 
 class BaseModel:
+    """BaseModel class
+    Base class for most classes used in the airbnb
+    clone
+    """
     def __init__(self, *args, **kwargs):
         if len(kwargs) != 0:
             for key, value in kwargs.items():
