@@ -10,6 +10,6 @@ class City(BaseModel):
     """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if len(kwargs) != 0:
+        if len(kwargs) == 0:
             self.state_id = ""
             self.name = ""
