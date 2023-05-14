@@ -2,7 +2,7 @@
 import unittest
 import sys
 
-sys.path.index(0, '../../../')
+sys.path.insert(0, '../../../')
 
 from models.engine.file_storage import FileStorage
 
