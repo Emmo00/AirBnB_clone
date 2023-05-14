@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Defines the FileStorage class."""
+"""file_storage module
+Defines the FileStorage class.
+"""
 import json
 import os
 from ..base_model import BaseModel
@@ -8,7 +10,8 @@ from ..user import User
 
 class FileStorage:
     """storage engine that that serializes instances to a JSON file
-    and deserializes JSON file to instances"""
+    and deserializes JSON file to instances
+    """
     def __init__(self):
         self.__file_path = 'file.json'
         self.__objects = {}
