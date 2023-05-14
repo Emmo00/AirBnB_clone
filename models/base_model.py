@@ -1,10 +1,14 @@
 #!/usr/bin/python3
+"""Defines the BaseModel class."""
 import uuid
 from datetime import datetime
 import models
 
 
 class BaseModel:
+    """Represents the BaseModel that defines all common attributes
+    /methods for other classes."""
+
     def __init__(self, *args, **kwargs):
         if len(kwargs) != 0:
             for key, value in kwargs.items():
@@ -19,6 +23,7 @@ class BaseModel:
         models.storage.new(self)
 
     def __str__(self):
+        """Return the print/str representation of the BaseModel instance."""
         return "[{}] ({}) {}".format(
             self.__class__.__name__,
             self.id,
@@ -26,11 +31,16 @@ class BaseModel:
         )
 
     def save(self):
+        """Update updated_at with the current datetime."""
         self.updated_at = datetime.now()
         models.storage.new(self)
         models.storage.save()
 
     def to_dict(self):
+        """Return the dictionary of the BaseModel instance.
+        Includes the key/value pair __class__ representing
+        the class name of the object.
+        """
         obj_dict = dict(self.__dict__)
         obj_dict['__class__'] = self.__class__.__name__
         obj_dict['created_at'] = obj_dict['created_at'].isoformat()
