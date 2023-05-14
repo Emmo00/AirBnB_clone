@@ -6,7 +6,8 @@ from ..user import User
 
 
 class FileStorage:
-    """Represent a storage engine that that serializes instances to a JSON file and deserializes JSON file to instances"""
+    """Represent a storage engine that that serializes instances to a JSON file
+    and deserializes JSON file to instances"""
     def __init__(self):
         self.__file_path = 'file.json'
         self.__objects = {}
