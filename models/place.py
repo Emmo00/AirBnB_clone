@@ -1,8 +1,13 @@
 #!/usr/bin/python3
+"""place module
+Defines Place class
+"""
 from models.base_model import BaseModel
 
 
 class Place(BaseModel):
+    """Place class
+    """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if len(kwargs) != 0:
