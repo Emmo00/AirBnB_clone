@@ -1,9 +1,5 @@
 #!/usr/bin/python3
 import unittest
-import sys
-
-sys.path.index(0, '../../../')
-
 from models.engine.file_storage import FileStorage
 
 
