@@ -1,63 +1,62 @@
 #!/usr/bin/python3
-"""test_user module
-test module for user module
+"""test_review module
+test module for review module
 """
 from time import sleep
 import unittest
 import sys
-from models.user import User
+from models.review import Review
 from datetime import datetime
 
 sys.path.insert(0, '../../')
 
 
-class TestUserClass(unittest.TestCase):
-    """TestUserClass class
-    tests the User class
+class TestReviewClass(unittest.TestCase):
+    """TestReviewClass class
+    tests the Review class
     """
     def test_unique_id(self):
-        model1 = User()
-        model2 = User()
+        model1 = Review()
+        model2 = Review()
         self.assertFalse(model1.id == model2.id)
 
     def test_id_type(self):
-        model = User()
+        model = Review()
         self.assertIsInstance(model.id, str)
 
     def test_created_updated_type(self):
-        model = User()
+        model = Review()
         self.assertIsInstance(model.created_at, datetime)
         self.assertIsInstance(model.updated_at, datetime)
 
     def test_str_representation(self):
-        model = User()
+        model = Review()
         self.assertIsInstance(model.__str__(), str)
 
     def test_updated_after_save(self):
-        model = User()
+        model = Review()
         update_time = model.updated_at
         sleep(2)
         model.save()
         self.assertNotEqual(update_time, model.updated_at)
 
     def test_default_values(self):
-        user = User()
-        self.assertTrue(user.email == "")
-        self.assertTrue(user.password == "")
-        self.assertTrue(user.first_name == "")
-        self.assertTrue(user.last_name == "")
+        review = Review()
+        self.assertTrue(review.place_id == "")
+        self.assertTrue(review.user_id == "")
+        self.assertTrue(review.text == "")
 
     def test_to_dict(self):
-        model = User()
+        model = Review()
         model_dict = model.to_dict()
         self.assertIsInstance(model_dict, dict)
         self.assertEqual(model_dict['__class__'], model.__class__.__name__)
         self.assertIsInstance(model_dict['created_at'], str)
 
     def test_keyword_created_object(self):
-        model1 = User()
+        model1 = Review()
         model1_dict = model1.to_dict()
-        model2 = User(**model1_dict)
+        model2 = Review(**model1_dict)
         self.assertFalse(model1 is model2)
         self.assertIsInstance(model2.created_at, datetime)
 
