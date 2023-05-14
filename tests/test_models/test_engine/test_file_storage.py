@@ -23,7 +23,6 @@ class TestFileStorageClass(unittest.TestCase):
             )
 
     def test_date_persist(self):
-        # test that object data is persisted
         my_storage = FileStorage()
         self.assertIsInstance(my_storage.all(), dict)
         self.assertTrue(my_storage.all() == {})
@@ -37,14 +36,11 @@ class TestFileStorageClass(unittest.TestCase):
         )
         my_storage.save()
         self.assertTrue(os.path.exists('file.json'))
-        # reload from another file storage class
         another_storage = FileStorage()
         another_storage.reload()
         self.assertTrue(len(another_storage.all()) == 1)
 
     def test_storage_format(self):
-        # test that the data persisted is the correct type and correct
-        # format generally i.e {'str': dict} (👍⚡)
         obj1 = BaseModel()
         obj2 = BaseModel()
         obj1.save()
@@ -56,7 +52,6 @@ class TestFileStorageClass(unittest.TestCase):
             self.assertIsInstance(value, BaseModel)
 
     def test_storage_file_created(self):
-        # test if file.json exists after we save from the base model
         self.assertTrue(not os.path.exists('file.json'))
         obj1 = BaseModel()
         obj1.save()
