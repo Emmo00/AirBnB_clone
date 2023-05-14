@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""test_file_storage
+test module for the file_storage module
+"""
 import unittest
 import os
 from models.engine.file_storage import FileStorage
@@ -6,6 +9,9 @@ from models.base_model import BaseModel
 
 
 class TestFileStorageClass(unittest.TestCase):
+    """TestFileStorageClass
+    tests the FileStorage class
+    """
     def setUp(self):
         if os.path.exists('file.json'):
             os.remove('file.json')

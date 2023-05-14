@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""test_base_model module
+test module for base_model module
+"""
 from time import sleep
 import unittest
 import sys
@@ -9,6 +12,9 @@ sys.path.insert(0, '../../')
 
 
 class TestBaseModelClass(unittest.TestCase):
+    """TestBaseModelClass class
+    tests the BaseModel class
+    """
     def test_unique_id(self):
         model1 = BaseModel()
         model2 = BaseModel()
