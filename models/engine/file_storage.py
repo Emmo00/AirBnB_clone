@@ -35,7 +35,7 @@ class FileStorage:
         """save the object in __objects to file
         in dictionary form
         """
-        with open(self.__file_path, 'w') as f:
+        with open(self.__file_path, 'w+', encoding='utf-8') as f:
             to_save = {}
             for key, value in self.__objects.items():
                 to_save[key] = value.to_dict()
@@ -46,7 +46,7 @@ class FileStorage:
         """
         if not os.path.exists(self.__file_path):
             return
-        with open(self.__file_path, 'r') as f:
+        with open(self.__file_path, 'r', encoding='utf-8') as f:
             self.__objects = json.load(f)
         for key, value in self.__objects.items():
             self.__objects[key] = eval(f"{value['__class__']}(**value)")
