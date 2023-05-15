@@ -35,7 +35,7 @@ class FileStorage:
         """save the object in __objects to file
         in dictionary form
         """
-        with open(self.__file_path, 'w+', encoding='utf-8') as f:
+        with open(self.__file_path, 'w', encoding='utf-8') as f:
             to_save = {}
             for key, value in self.__objects.items():
                 to_save[key] = value.to_dict()
