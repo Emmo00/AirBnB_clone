@@ -57,6 +57,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 3:
             print("** attribute name missing **")
             return False
+        return True
 
     def validate_argument_attribute_value(self, args):
         if len(args) < 4:
