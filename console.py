@@ -14,23 +14,11 @@ from models import storage
 import shlex
 
 
-class ArgumentError(Exception):
-    """custom Error class for
-    bad arguments"""
-    pass
-
-
 class HBNBCommand(cmd.Cmd):
     """Airbnb shell class
     """
     prompt = '(hbnb) '
     existing_objs = storage.all()
-
-    def cmdloop(self):
-        try:
-            super().cmdloop()
-        except ArgumentError:
-            self.cmdloop()
 
     def emptyline(self):
         return False
@@ -50,28 +38,31 @@ class HBNBCommand(cmd.Cmd):
             )
         if len(args) == 0:
             print("** class name missing **")
-            raise ArgumentError("class name missing")
+            return False
         if args[0] not in supported_classes:
             print("** class doesn't exist **")
-            raise ArgumentError("class doesn't exist")
+            return False
+        return True
 
     def validate_argument_id(self, args):
         if len(args) < 2:
             print("** instance id missing **")
-            raise ArgumentError("instance id missing")
+            return False
         if f"{args[0]}.{args[1]}" not in storage.all():
             print("** no instance found **")
-            raise ArgumentError("no instance found")
+            return False
+        return True
 
     def validate_argument_attribute_name(self, args):
         if len(args) < 3:
             print("** attribute name missing **")
-            raise ArgumentError("attribute name missing")
+            return False
 
     def validate_argument_attribute_value(self, args):
         if len(args) < 4:
             print("** value missing **")
-            raise ArgumentError("value missing")
+            return False
+        return True
 
     def do_quit(self, args):
         """Quit command to exit the program
@@ -89,7 +80,8 @@ class HBNBCommand(cmd.Cmd):
         Ex: $ create BaseModel
         """
         args = self.parse_arguments(args)
-        self.validate_argument_class_name(args)
+        if not self.validate_argument_class_name(args):
+            return False
         class_name = args[0]
         new = eval(f"{class_name}()")
         new.save()
@@ -101,8 +93,10 @@ class HBNBCommand(cmd.Cmd):
         Ex: $ show BaseModel 1234-1234-1234.
         """
         args = self.parse_arguments(args)
-        self.validate_argument_class_name(args)
-        self.validate_argument_id(args)
+        if not self.validate_argument_class_name(args):
+            return False
+        if not self.validate_argument_id(args):
+            return False
         class_name, id = args
         obj = self.existing_objs[f'{class_name}.{id}']
         print(obj)
@@ -113,8 +107,10 @@ class HBNBCommand(cmd.Cmd):
         Ex: $ destroy BaseModel 1234-1234-1234.
         """
         args = self.parse_arguments(args)
-        self.validate_argument_class_name(args)
-        self.validate_argument_id(args)
+        if not self.validate_argument_class_name(args):
+            return False
+        if not self.validate_argument_id(args):
+            return False
         class_name, id = args
         del self.existing_objs[f"{class_name}.{id}"]
         storage.save()
@@ -126,7 +122,8 @@ class HBNBCommand(cmd.Cmd):
         """
         args = self.parse_arguments(args)
         if len(args) >= 1:
-            self.validate_argument_class_name(args)
+            if not self.validate_argument_class_name(args):
+                return False
         class_name = "" if len(args) < 1 else args[0]
         instance_list = []
         for key, value in self.existing_objs.items():
@@ -140,10 +137,14 @@ class HBNBCommand(cmd.Cmd):
         Ex: $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
         """
         args = self.parse_arguments(args)
-        self.validate_argument_class_name(args)
-        self.validate_argument_id(args)
-        self.validate_argument_attribute_name(args)
-        self.validate_argument_attribute_value(args)
+        if not self.validate_argument_class_name(args):
+            return False
+        if not self.validate_argument_id(args):
+            return False
+        if not self.validate_argument_attribute_name(args):
+            return False
+        if not self.validate_argument_attribute_value(args):
+            return False
         class_name, id, attribute_name, attribute_value = args
         obj = self.existing_objs[f"{class_name}.{id}"]
         setattr(obj, attribute_name, attribute_value)
