@@ -20,6 +20,9 @@ class FileStorage:
     __objects = {}
 
     def all(self):
+        """returns the objects loaded
+        from json file
+        """
         return self.__objects
 
     def new(self, obj):
@@ -29,6 +32,9 @@ class FileStorage:
         )] = obj
 
     def save(self):
+        """save the object in __objects to file
+        in dictionary form
+        """
         with open(self.__file_path, 'w') as f:
             to_save = {}
             for key, value in self.__objects.items():
@@ -36,6 +42,8 @@ class FileStorage:
             json.dump(to_save, f)
 
     def reload(self):
+        """reload objects from file
+        """
         if not os.path.exists(self.__file_path):
             return
         with open(self.__file_path, 'r') as f:
