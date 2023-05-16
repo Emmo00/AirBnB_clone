@@ -40,6 +40,10 @@ class HBNBCommand(cmd.Cmd):
             class_name = line.split('.')[0]
             obj_id = line.strip().split('.')[1][6:-2]
             return self.do_show(f"{class_name} {obj_id}")
+        elif '.destroy("' in line and line.strip().endswith('")'):
+            class_name = line.split('.')[0]
+            obj_id = line.strip().split('.')[1][9:-2]
+            return self.do_destroy(f"{class_name} {obj_id}")
         return super().onecmd(line)
 
     def validate_argument_class_name(self, args):
