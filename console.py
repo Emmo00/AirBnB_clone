@@ -29,6 +29,13 @@ class HBNBCommand(cmd.Cmd):
     def onecmd(self, line):
         if line.strip().endswith('.all()'):
             return self.do_all(line.split('.')[0])
+        if line.strip().endswith('.count()'):
+            count = 0
+            for key in self.existing_objs:
+                if key.startswith(f"{line.split('.')[0]}."):
+                    count += 1
+            print(count)
+            return
         return super().onecmd(line)
 
     def validate_argument_class_name(self, args):
