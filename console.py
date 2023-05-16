@@ -26,6 +26,11 @@ class HBNBCommand(cmd.Cmd):
     def parse_arguments(self, args):
         return shlex.split(args)
 
+    def onecmd(self, line):
+        if line.strip().endswith('.all()'):
+            return self.do_all(line.split('.')[0])
+        return super().onecmd(line)
+
     def validate_argument_class_name(self, args):
         supported_classes = (
             'BaseModel',
