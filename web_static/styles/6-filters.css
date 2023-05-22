@@ -22,33 +22,25 @@
 .filters button:hover {
   opacity: 0.9;
 }
-.locations,
-.amenities {
+.filters .locations,
+.filters .amenities {
+  display: inline-block;
   height: 100%;
   width: 25%;
-  line-height: 15%;
-  float: left;
-  cursor: pointer;
+  padding: 0 3%;
+  line-height: .1;
 }
-.locations {
+.filters > :first-child {
   border-right: 1px solid #dddddd;
 }
 .locations h3,
 .amenities h3 {
   font-weight: 600;
-  position: relative;
-  top: 20%;
-  left: 70%;
-  transform: translate(-50%, -50%);
 }
 .locations h4,
 .amenities h4 {
   font-weight: 400;
   font-size: 14px;
-  position: relative;
-  top: 10%;
-  left: 70%;
-  transform: translate(-50%, -50%);
 }
 .filters div {
     position: relative;
@@ -62,11 +54,11 @@
     border-radius: 4px;
     list-style: none;
     position: absolute;
-    min-width: 100%;
+    width: 100%;
+    left: 0;
 }
 .popover h2 {
     font-size: 16px;
-    line-height: 10%;
 }
 .popover ul {
     list-style: none;

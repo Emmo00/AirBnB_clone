@@ -1,3 +1,8 @@
+.places > *:not(:first-child) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+}
 .places h1 {
     text-align: left;
     font-size: 30px;
@@ -10,7 +15,9 @@
     border: 1px solid #ff5a5f;
     border-radius: 4px;
     float: left;
+    text-align: center;
 }
 .places article h2 {
+    font-size: 30px;
     text-align: center;
 }
