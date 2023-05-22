@@ -1,7 +1,7 @@
-.places > *:not(:first-child) {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    justify-items: center;
+.places > *:last-child:nth-child(even) {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 .places h1 {
     text-align: left;
