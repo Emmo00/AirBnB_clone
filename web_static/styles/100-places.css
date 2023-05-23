@@ -69,3 +69,18 @@
   text-align: left;
 }
 
+.amenities {
+    margin-top: 40px;
+}
+.amenities li {
+    color:#ff5a5f;
+}
+.amenities h2 {
+    font-size: 16px;
+    border-bottom: 1px solid #dddddd;
+}
+
+.amenities ul, .reviews ul {
+    list-style: none;
+    text-align: left;
+}
