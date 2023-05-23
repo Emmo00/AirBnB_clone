@@ -1,21 +1,21 @@
 .places > *:last-child:nth-child(even) {
     position: relative;
-    left: 50%;
+    left: 46%;
+    margin: 20px auto;
     transform: translateX(-50%);
 }
 .places h1 {
     text-align: left;
     font-size: 30px;
 }
-
 .places article {
     width: 390px;
     padding: 20px;
     margin: 20px;
     border: 1px solid #ff5a5f;
     border-radius: 4px;
-    float: left;
     text-align: center;
+    display: inline-block;
 }
 .places article h2 {
     font-size: 30px;
