@@ -64,23 +64,49 @@
   position: relative;
   top: 0;
 }
+.user {
+    margin-top: 20px;
+}
 .description,
 .user {
   text-align: left;
 }
 
-.amenities {
+.places .amenities {
     margin-top: 40px;
 }
-.amenities li {
-    color:#ff5a5f;
-}
-.amenities h2 {
+.places .amenities h2 {
     font-size: 16px;
     border-bottom: 1px solid #dddddd;
 }
-
-.amenities ul, .reviews ul {
+.places .amenities ul, .places .reviews ul {
     list-style: none;
     text-align: left;
+}
+.places .reviews {
+    margin-top: 40px;
+}
+.reviews h2 {
+    font-size: 16px;
+    border-bottom: 1px solid #dddddd;
+}
+.amenities li {
+    list-style-position: inside;
+}
+.reviews li h3 {
+    font-size: 14px;
+    line-height: .2;
+}
+.reviews li p {
+    font-size: 12px;
+    line-height: .5;
+}
+.amen-tv {
+    list-style-image: url("../images/icon_tv.png");
+}
+.amen-wifi {
+    list-style-image: url("../images/icon_wifi.png");
+}
+.amen-pet {
+    list-style-image: url("../images/icon_pets.png");
 }
