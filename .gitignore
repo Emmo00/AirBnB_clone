@@ -1,6 +1,9 @@
 # Date file
 file.json
 
+# vscode setting folder
+.vscode/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
